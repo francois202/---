@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Система для управления мед учреждением</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <div>
+    <blockquote class="blockquote">
+        <h1>Информационно-справочная система для управления медицинским учреждением</h1>
+    </blockquote>
+    <div class="row">
+        <div class="col-md-8 offset-md-4">
+            <h4>Поиск записи пациента по любому критерию</h4>
+            <form th:action="@{/}">
+                <input type="text" name="keyword" id="keyword" size="70" th:value="${keyword}" required/>
+                <input type="submit" class="btn btn-success btn-sm" value="Поиск"/>
+                <input type="button" class="btn btn-warning btn-sm" value="Очистить" id="btnClear" onclick="clearSearch()"/>
+            </form>
+        </div>
+    </div>
+        <table id="1" class="table table-stripped table-hover">
+            <thead>
+            <tr>
+                <th scope="col" onclick="sortTable(1)">Имя</th>
+                <th scope="col" onclick="sortTable(2)">Фамилия</th>
+                <th scope="col" onclick="sortTable(3)">Информация о пациенте</th>
+                <th scope="col">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${listPatients}">
+                <td th:text="${patient.firstName}">Имя пациента отсутствует</td>
+                <td th:text="${patient.lastName}">Фамилия пациента отсутствует</td>
+                <td th:text="${patient.info}">Информация о пациенте отсутствует</td>
+                <td>
+                    <a th:href="@{'/edit/' + ${patient.id}}"><button type="button" class="btn btn-info">Редактировать</button></a>
+                    <a th:href="@{'/delete/' + ${patient.id}}"><button type="button" class="btn btn-danger">Удалить</button></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="text-black">
+        <script type="text/javascript">
+            function getRowsColumn() {
+                let table = document.getElementById('1')
+                let tBody = table.querySelector('tbody')
+                const count = tBody.querySelectorAll('tr').length;
+                document.write('Количество пациентов в таблице: ' + count)
+            }
+            getRowsColumn()
+        </script>
+    </p>
+    <blockquote class="blockquote text-center">
+    <a href="/new">
+        <button type="button" class="btn btn-primary" data-togge="button" aria-pressed="false" autocomplete="off">Добавить пациента</button>
+    </a>
+    </blockquote>
+</div>
+<script type="text/javascript">
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("1");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+    function clearSearch() {
+        window.location="[[@{/}]]"
+    }
+</script>
+    <a href="/logout" class="logout-btn">
+        <button type="button" class="btn btn-danger">
+            <i class="bi bi-box-arrow-right"></i>
+        </button>
+    </a>
+</body>
+</html>

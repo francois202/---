@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Система для управления мед учреждением | Добавить пациента</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div>
+    <blockquote class="blockquote text-center"><h1>Добавление пациента</h1></blockquote>
+    <a href="/" class="btn btn-secondary">Назад</a>
+    <div class="row">
+        <div class="col-md-8 offset-md-4">
+            <form action="#" th:action="@{/save}" th:object="${patient}" method="post">
+                <table>
+                    <tr>
+                        <td>Имя:</td>
+                        <td><input type="text" th:field="*{firstName}"></td>
+                        <td><div style="color:red" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Ошибка по имени</div></td>
+                    </tr>
+                    <tr>
+                        <td>Фамилия:</td>
+                        <td><input type="text" th:field="*{lastName}"></td>
+                        <td><div style="color:red" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Ошибка по фамилии</div></td>
+                    </tr>
+                    <tr>
+                        <td>Информация:</td>
+                        <td><input type="text" th:field="*{info}"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Сохранить</button>
+                        </td>
+                    </tr>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
