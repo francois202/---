@@ -13,6 +13,7 @@
     <div class="row">
         <div class="col-md-8 offset-md-4">
             <form action="#" th:action="@{/update}" th:object="${patient}" method="post">
+                <input type="hidden" th:field="*{id}" />
                 <table>
                     <tr>
                         <td>Имя:</td>
@@ -30,11 +31,12 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Отправить</button>
+                            <button type="submit" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">Сохранить</button>
                         </td>
                     </tr>
                 </table>
             </form>
+
         </div>
     </div>
 </div>

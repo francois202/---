@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @AllArgsConstructor
@@ -47,10 +48,11 @@ public class AppController {
     }
 
     @RequestMapping("/edit/{id}")
-    public String showEditPatientForm(@PathVariable(name="id") Long id, Model model) {
+    public ModelAndView showEditPatientForm(@PathVariable(name="id") Long id) {
+        ModelAndView mav = new ModelAndView("edit_patient");
         Patient patient = service.get(id);
-        model.addAttribute("patient", patient);
-        return "edit_patient";
+        mav.addObject("patient", patient);
+        return mav;
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -59,7 +61,6 @@ public class AppController {
         if (bindingResult.hasErrors()) {
             return "edit_patient";
         }
-
         service.save(patient);
         return "redirect:/";
     }
@@ -68,11 +69,6 @@ public class AppController {
     public String deletePatient(@PathVariable(name="id") Long id) {
         service.delete(id);
         return "redirect:/";
-    }
-
-    @RequestMapping("/login")
-    public String login() {
-        return "login";
     }
 
     @RequestMapping("/logout")
