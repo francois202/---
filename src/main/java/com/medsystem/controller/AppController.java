@@ -70,9 +70,4 @@ public class AppController {
         service.delete(id);
         return "redirect:/";
     }
-
-    @RequestMapping("/logout")
-    public String logout() {
-        return "redirect:/login";
-    }
 }

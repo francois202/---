@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.4.0'
     id 'io.spring.dependency-management' version '1.1.6'
-    id 'com.netflix.dgs.codegen' version '6.2.1'
+    id 'com.netflix.dgs.codegen' version '7.0.3'
     id 'org.graalvm.buildtools.native' version '0.10.3'
     id 'gg.jte.gradle' version '3.1.12'
 }
@@ -40,6 +40,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation platform('org.springframework.boot:spring-boot-dependencies:3.4.0')
+    implementation 'io.projectreactor:reactor-core'
     implementation 'gg.jte:jte:3.1.12'
     implementation 'gg.jte:jte-spring-boot-starter-3:3.1.12'
     implementation 'org.springframework.data:spring-data-rest-hal-explorer'
