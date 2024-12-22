@@ -5,10 +5,6 @@ import com.medsystem.model.UserEntity;
 import com.medsystem.repository.RoleRepository;
 import com.medsystem.repository.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +17,6 @@ import java.util.Collections;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
@@ -42,7 +37,7 @@ public class AuthController {
                            Model model) {
 
         if (userRepository.existsByUsername(username)) {
-            model.addAttribute("error", "Username is already taken!");
+            model.addAttribute("error", "Такой пользователь уже существует.");
             return "register";
         }
 
@@ -51,7 +46,7 @@ public class AuthController {
         userEntity.setPassword(passwordEncoder.encode(password));
 
         Role userRole = roleRepository.findByName("USER")
-                .orElseThrow(() -> new RuntimeException("Role not found"));
+                .orElseThrow(() -> new RuntimeException("Роль не найдена"));
 
         userEntity.setRoles(Collections.singletonList(userRole));
         userRepository.save(userEntity);

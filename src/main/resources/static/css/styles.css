@@ -81,11 +81,11 @@ form .btn {
 }
 
 .table thead th:first-child {
-    border-top-left-radius: 8px; /* Верхний левый угол */
+    border-top-left-radius: 8px;
 }
 
 .table thead th:last-child {
-    border-top-right-radius: 8px; /* Верхний правый угол */
+    border-top-right-radius: 8px;
 }
 
 
@@ -95,6 +95,11 @@ form .btn {
 
 .table .btn-danger {
     margin-left: 5px;
+}
+
+.error-message {
+    text-align: center;
+    margin-top: 10px;
 }
 
 blockquote a button {
