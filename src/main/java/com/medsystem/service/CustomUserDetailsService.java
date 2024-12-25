@@ -1,4 +1,4 @@
-package com.medsystem.security;
+package com.medsystem.service;
 
 import com.medsystem.model.UserEntity;
 import com.medsystem.repository.UserRepository;
